@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {clearCurrentPost} from "../shared/store/slices/posts";
-import {useStore} from "../shared/hooks/useStore.ts";
-import {getPost} from "../modules/PostDetail/store";
-import {Loader} from "../shared/Loader/Loader.tsx";
-import Heading from "../shared/Heading/Heading.tsx";
-import Error from "../shared/Error/Error.tsx";
+import Heading from "../../../shared/Heading/Heading.tsx";
+import Error from "../../../shared/Error/Error.tsx";
+import {useStore} from "../../../shared/hooks/useStore.ts";
+import {getPost} from "../store";
+import {clearCurrentPost} from "../../../shared/store/slices/posts";
+import {Loader} from "../../../shared/Loader/Loader.tsx";
 
 
 const PostDetail: React.FC = () => {
@@ -13,6 +13,7 @@ const PostDetail: React.FC = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <Error errorMessage={error || "Unknown error occurred"} />;
+
 
   return (
     <div>
@@ -25,4 +26,4 @@ const PostDetail: React.FC = () => {
   );
 };
 
-export default PostDetail;
+export default PostDetail

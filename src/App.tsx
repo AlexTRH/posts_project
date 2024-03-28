@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Home from './pages/Home.tsx';
-import PostList from './pages/PostList.tsx';
-import PostDetail from './pages/PostDetail.tsx';
+import HomePage from './pages/HomePage.tsx';
+import PostListPage from './pages/PostListPage.tsx';
+import PostDetailPage from './pages/PostDetailPage.tsx';
 import {store} from "./shared/store";
 
 const App: React.FC = () => {
@@ -11,9 +11,9 @@ const App: React.FC = () => {
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/posts" element={<PostList />} />
-          <Route path="/posts/:postId" element={<PostDetail />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/posts" element={<PostListPage />} />
+          <Route path="/posts/:postId" element={<PostDetailPage />} />
         </Routes>
       </Router>
     </Provider>

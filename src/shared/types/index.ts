@@ -5,11 +5,3 @@ export interface Post {
   title: string;
   body: string;
 }
-
-export interface PostsState {
-  posts: Post[];
-  isLoading: boolean;
-  currentPost: Post | null;
-  error: string | null;
-}
-

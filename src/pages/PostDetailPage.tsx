@@ -6,9 +6,9 @@ const PostDetailPage: React.FC = () => {
 
 
   return (
-    <div>
+
       <PostDetail />
-    </div>
+    
   );
 };
 

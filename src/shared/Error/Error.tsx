@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ErrorProps {
-  errorMessage: string;
+  errorMessage?: any;
 }
 
 const Error: React.FC<ErrorProps> = ({ errorMessage }) => {

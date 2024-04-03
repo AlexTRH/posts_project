@@ -4,10 +4,10 @@ import PostList from "../modules/Posts/ui/PostList.tsx";
 const PostListPage: React.FC = () => {
 
   return (
-    <div>
+    <>
       <Heading text ='Posts'/>
       <PostList />
-    </div>
+    </>
   );
 };
 

@@ -1,18 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import {postsList} from "../store";
-import {useStore} from "../../../shared/hooks/useStore.ts";
-import {clearPostList} from "../../../shared/store/slices/posts";
+import {Link} from 'react-router-dom';
+import {useGetPostsQuery} from "../../../shared/api/postsApi";
 import {Loader} from "../../../shared/Loader/Loader.tsx";
 import Error from "../../../shared/Error/Error.tsx";
-const PostList: React.FC = () => {
-  const {  posts, isLoading, error } = useStore(postsList, clearPostList);
 
-  if (isLoading) return <Loader />;
-  if (error) return <Error errorMessage={error || "Unknown error occurred"} />;
+const PostList: React.FC = () => {
+  const {
+    data: posts,
+    isLoading,
+    error
+  } = useGetPostsQuery();
+
+  // const {  posts, isLoading, error } = useStore(postsList, clearPostList);
+
+  if (isLoading) return <Loader/>;
+  if (error) return <Error errorMessage={error || "Unknown error occurred"}/>;
 
   return (
     <div>
+      <Link to="/">Go Home</Link>
       <ul>
         {posts?.map((post: any) => (
           <li key={post.id}>
@@ -20,7 +26,6 @@ const PostList: React.FC = () => {
           </li>
         ))}
       </ul>
-      <Link to="/">Go Home</Link>
     </div>
   );
 };

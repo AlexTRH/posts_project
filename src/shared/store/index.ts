@@ -1,18 +1,30 @@
-import { configureStore } from '@reduxjs/toolkit';
-import {postsApi} from "../api/postsApi";
+import {create} from "zustand";
+import {Post, StoreState} from "../types";
+import axios, {AxiosResponse} from "axios";
 
-
-export const store = configureStore({
-  reducer: {
-    // Add other reducers here if needed
-    [postsApi.reducerPath]: postsApi.reducer,
+const useStore = create<StoreState>((set) => ({
+  posts: [],
+  currentPost: null,
+  isLoading: false,
+  error: null,
+  fetchPosts: async () => {
+    try {
+      set({ isLoading: true });
+      const response: AxiosResponse<Post[]> = await  axios.get('https://jsonplaceholder.typicode.com/posts')
+      set({ posts: response.data, isLoading: false});
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+    }
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(postsApi.middleware),
-})
+  fetchCurrentPost: async (postId: number) => {
+    try {
+      set({ isLoading: true });
+      const response: AxiosResponse<Post> = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+      set({ currentPost: response.data, isLoading: false  });
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+    }
+  }
+}))
 
-// export const store = configureStore(slices);
-//
-//
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export default useStore

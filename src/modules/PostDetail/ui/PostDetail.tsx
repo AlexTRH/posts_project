@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Heading from "../../../shared/Heading/Heading.tsx";
 import Error from "../../../shared/Error/Error.tsx";
-import { useGetPostByIdQuery} from "../../../shared/api/postsApi";
 import {Loader} from "../../../shared/Loader/Loader.tsx";
+import useStore from "../../../shared/store";
 
 
 const PostDetail: React.FC = () => {
   const { postId } = useParams<{ postId: any }>();
+  const {currentPost,isLoading, error, fetchCurrentPost} = useStore()
 
-  const {
-    data: currentPost,
-    isLoading,
-    isError,
-    error
-  } = useGetPostByIdQuery(postId);
+  useEffect(() => {
+    fetchCurrentPost(parseInt(postId, 10))
+  }, [fetchCurrentPost, postId])
 
   if (isLoading) return <Loader />;
-  if (isError) return <Error errorMessage={error || "Unknown error occurred"} />;
+  if (error) return <Error errorMessage={error || "Unknown error occurred"} />;
 
 
   return (
